@@ -1,0 +1,5 @@
+<plugins>
+                <plugin order="1" name="Corewindow" />
+<!--		<endplugin/>-->
+                <pluginnum value="1"/>
+</plugins>

@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/b_img">
+        <file>background.jpeg</file>
+        <file>六芒星.jpeg</file>
+        <file>六芒星.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>12.png</file>
+        <file>45.png</file>
+    </qresource>
+</RCC>
