@@ -3,6 +3,9 @@
 #include <QMutex>
 #include <QFile>
 #include <QDebug>
+#include <QElapsedTimer>
+#include <QCoreApplication>
+
 static bool g_decoding = false;
 static QMutex g_mutex;
 #define RTP
@@ -70,7 +73,7 @@ void AvDecoder::decode()
     file.close();
     AVIOContext * avio = avio_alloc_context((unsigned char *)ba.data(), ba.size(), 0, (void*)NULL, NULL, NULL, NULL);
     pAvFmtCtx->pb = avio;
-    pAvFmtCtx->iformat = av_find_input_format("sdp");
+    pAvFmtCtx->iformat = av_find_input_format("mp4");
     AVDictionary *option = NULL;
 
     /*timeout:设置超时时间，否则阻塞在av_read_frame中*/
@@ -114,6 +117,9 @@ void AvDecoder::decodeFrame(AVFormatContext *pAvFmtCtx, uint streamIndex)
         AVStream *pAvStream = pAvFmtCtx->streams[streamIndex];
         AVCodecContext *pAvCodecCtx = pAvStream->codec;
         AVCodec *pAvCodec = avcodec_find_decoder(pAvCodecCtx->codec_id);
+        qDebug()<<pAvCodecCtx->width;
+        qDebug()<<pAvCodecCtx->height;
+        M_display->change_size(pAvCodecCtx->width,pAvCodecCtx->height);
         if (pAvCodec == NULL) {
             debugInfo(QString("cannot find video decoder !!!"), AVDEBUG_ERROR);
             break;
@@ -135,7 +141,7 @@ void AvDecoder::decodeFrame(AVFormatContext *pAvFmtCtx, uint streamIndex)
 
 
             if (av_read_frame(pAvFmtCtx, pAvPkt) < 0) {
-//                qDebug() << "&&&&&&&&&&&&&&&&&&&&&&";
+                //                qDebug() << "&&&&&&&&&&&&&&&&&&&&&&";
                 continue;
             }
             if (!g_decoding) {
@@ -172,20 +178,30 @@ void AvDecoder::decodeFrame(AVFormatContext *pAvFmtCtx, uint streamIndex)
             memcpy((void *)spFrameImage->bits(), (void *)pAvFrameRGB->data[0], picSize);
 
             /*触发信号抛出一帧图像*/
-            emit signalFrameImage(spFrameImage);
+            IMAGE_DATA::_IMAGEDATA spFrameImage_t;
+            spFrameImage_t.sp_t_image=spFrameImage;
+            parse_time(&spFrameImage_t,pAvFrame);
+            emit signalFrameImage(spFrameImage_t);
+            // m_displat->display_tag=1;
 
             /*av_read_frame导致内存泄露，每读完一个packet，必须调用av_packet_unref函数进行内存释放，否则会导致内存释泄漏*/
             av_packet_unref(pAvPkt);
             av_frame_free(&pAvFrameRGB);
             av_free(buf);
             sws_freeContext(pSwsCtx);
+            //            QElapsedTimer et;
+            //            et.start();
+            //            while(et.elapsed()<30)//ms
+            //            {
+            //                QCoreApplication::processEvents();
+            //            }
         }
         av_frame_free(&pAvFrame);
         av_packet_free(&pAvPkt);
 
     } while (0);
 
-//    emit signalDecodeFinished();
+    emit signalDecodeFinished();
 
     return;
 }
@@ -208,4 +224,22 @@ void AvDecoder::debugInfo(const QString &text, AVDEBUG_TYPE type)
     }
 
     qDebug() << debugText.append(text);
+}
+
+void AvDecoder::parse_time( IMAGE_DATA::_IMAGEDATA *structdata, const AVFrame *Frame)
+{
+    AVDictionaryEntry *entry=av_dict_get(Frame->metadata,"sec",NULL,0);
+    if(entry==NULL)
+        return;
+    uint32_t secs;
+    memcpy((void*)&secs,(void*)&entry->value,4);
+
+    entry=av_dict_get(Frame->metadata,"nsec",NULL,0);
+    if(entry==NULL)
+        return;
+    uint32_t nsecs;
+    memcpy((void*)&nsecs,(void*)&entry->value,4);
+
+    structdata->sec=secs;
+    structdata->nsec=nsecs;
 }

@@ -10,7 +10,16 @@
 #include <QColor>
 #include <QPointF>
 #include <QString>
+#include <QImage>
+#include <QSharedPointer>
+namespace  IMAGE_DATA{
 
+typedef struct _IMAGEDATA{
+    uint32_t sec;
+    uint32_t nsec;
+    QSharedPointer<QImage> sp_t_image;
+}_IMAGEDATA;
+}
 namespace V1DATA {
 typedef  enum{
     NORMAL,

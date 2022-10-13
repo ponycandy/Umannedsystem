@@ -4,7 +4,7 @@
 #include <QThread>
 #include <QImage>
 #include <QSharedPointer>
-
+#include <defines/Vehicle1_data.h>
 extern "C"
 {
 #include <libavcodec/avcodec.h>
@@ -23,6 +23,7 @@ public:
     /*解码*/
     void startDecode(const QString &url);
     void stopDecode();
+    void parse_time( IMAGE_DATA::_IMAGEDATA *structdata, const AVFrame *Frame);
 
 signals:
     void signalDecodeFinished();
