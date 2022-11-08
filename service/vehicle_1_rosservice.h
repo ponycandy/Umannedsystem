@@ -9,7 +9,7 @@ class vehicle_1_rosservice
 {
 public:
     virtual ~vehicle_1_rosservice(){}
-    virtual void pub(QSharedPointer<V1DATA::POINTCLOUD> cloud_ptr)=0;
+    virtual void pub(V1DATA::SHARED_POINTCLOUD cloud_ptr)=0;
     virtual void pub(QSharedPointer<QImage> image_ptr)=0;
 
 };

@@ -3,7 +3,7 @@
 #include "QtDebug"
 #include "defines/Vehicle1_data.h"
 nodemanager::nodemanager(QObject *parent) : QObject(parent),
-    nh_(NULL),  ros_timer(NULL)
+    nh_(NULL),  ros_timer(NULL),m_pub_once(NULL)
 {
     m_pub_once=new Singleshot;
     state_Nokl="stop";

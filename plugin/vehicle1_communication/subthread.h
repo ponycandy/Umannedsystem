@@ -24,6 +24,7 @@ public:
     QMQTT::Client *client;
     vehicle_1_rosservice *m_service_ros;
 
+
 private slots:
     void slot_start_node();
     void slot_stop_node();

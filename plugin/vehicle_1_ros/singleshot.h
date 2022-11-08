@@ -10,7 +10,7 @@ class Singleshot : public QObject,public vehicle_1_rosservice
 
 public:
     explicit Singleshot(QObject *parent = nullptr);
-    void pub(QSharedPointer<V1DATA::POINTCLOUD> cloud_ptr) override;
+    void pub(V1DATA::SHARED_POINTCLOUD cloud_ptr) override;
     void pub(QSharedPointer<QImage> image_ptr) override;
     ros::NodeHandlePtr nh_;
     ros::Publisher pub_1;

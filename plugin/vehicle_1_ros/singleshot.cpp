@@ -2,7 +2,8 @@
 #include <vehicle_1_rosActivator.h>
 #include <sensor_msgs/Image.h>
 #include <QImage>
-Singleshot::Singleshot(QObject *parent) : QObject(parent)
+#include <QtDebug>
+Singleshot::Singleshot(QObject *parent) : QObject(parent),nh_(nullptr)
 {
         nh_.reset(new ros::NodeHandle);
 
@@ -16,29 +17,29 @@ Singleshot::Singleshot(QObject *parent) : QObject(parent)
 
 }
 
-void Singleshot::pub(QSharedPointer<V1DATA::POINTCLOUD> cloud_ptr)
+void Singleshot::pub(V1DATA::SHARED_POINTCLOUD cloud_ptr)
 {
     sensor_msgs::PointCloud m_pointcloud;
 
-    m_pointcloud.header.seq=cloud_ptr.data()->secquense;
-    m_pointcloud.header.stamp.sec=cloud_ptr.data()->time.secs;
-    m_pointcloud.header.stamp.nsec=cloud_ptr.data()->time.nsecs;
+
+    m_pointcloud.header.seq=cloud_ptr.SH_POINTCLOUD.data()->secquense;
+    m_pointcloud.header.stamp.sec=cloud_ptr.SH_POINTCLOUD.data()->time.secs;
+    m_pointcloud.header.stamp.nsec=cloud_ptr.SH_POINTCLOUD.data()->time.nsecs;
     m_pointcloud.header.frame_id="laser_frame";
     m_pointcloud.channels.resize(2);
     m_pointcloud.channels[0].name="intensities";
     m_pointcloud.channels[1].name="stamps";
-    for(int i=0;i<cloud_ptr->pointnum;i++)
+    for(int i=0;i<cloud_ptr.SH_POINTCLOUD.data()->pointnum;i++)
     {
         geometry_msgs::Point32 point;
-        point.x =cloud_ptr->point_group[i].x;
-        point.y = cloud_ptr->point_group[i].y;
+        point.x =cloud_ptr.SH_POINTCLOUD.data()->point_group[i].x;
+        point.y = cloud_ptr.SH_POINTCLOUD.data()->point_group[i].y;
         point.z = 0;
         m_pointcloud.points.push_back(point);
-        m_pointcloud.channels[0].values.push_back(cloud_ptr->point_group[i].intensity);
-        m_pointcloud.channels[1].values.push_back(cloud_ptr->point_group[i].timestamp);
+        m_pointcloud.channels[0].values.push_back(cloud_ptr.SH_POINTCLOUD.data()->point_group[i].intensity);
+        m_pointcloud.channels[1].values.push_back(cloud_ptr.SH_POINTCLOUD.data()->point_group[i].timestamp);
     }
-    pub_1.publish(m_pointcloud);
-
+    pub_1.publish(m_pointcloud);//问题在上位机的这一步
 }
 
 void Singleshot::pub(QSharedPointer<QImage> image_ptr)

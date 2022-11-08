@@ -110,6 +110,9 @@ typedef  struct   _POINTCLOUD{
     QVector<SINGEPOINTDATA> point_group;
 }POINTCLOUD;
 #pragma pack(pop)
+typedef  struct   _SHARED_POINTCLOUD{
+    QSharedPointer<POINTCLOUD> SH_POINTCLOUD;
+}SHARED_POINTCLOUD;
 typedef  struct   _TFTRANS{
     uint32_t secquense;
     ROSTIMESTAMP time;
