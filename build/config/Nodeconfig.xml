@@ -2,6 +2,7 @@
  <nodetolaunch value="scout_bringup scout_teleop_keyboard.launch"/>
  <nodetolaunch value="ydlidar_ros_driver lidar.launch"/>
  <nodelaunched value="wheeltec_joy joy_data.launch"/>
+ <nodelaunched value="cmd_double cmd_double.launch"/>
  <!-- <nodetolaunch value="1883" name="port"/>-->
  <!-- <nodelaunched value="vehicle1_S" name="username"/>-->
  <!-- <nodelaunched value="public" name="password"/>-->
