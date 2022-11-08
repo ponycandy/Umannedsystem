@@ -1,3 +1,4 @@
 <vehiclelist>
- <vehicle port="1883" password="public" cilentID="UCS_to_vehicle1_send" username2="UCS_to_vehicle1_recieved" cilentnum="vehicle1" password2="public" host="101.43.33.201" username="UCS_to_vehicle1_send" topicname="downloadstream_vehicle1" port2="1883" topicname2="uploadstream_vehicle1" cilentID2="UCS_to_vehicle1_recieved" host2="101.43.33.201"/>
+ <vehicle port="1883" cilentID2="UCS_to_vehicle1_recieved" topicname2="uploadstream_vehicle1" username="UCS_to_vehicle1_send" topicname="downloadstream_vehicle1" cilentnum="vehicle1" port2="1883" password2="public" password="public" host2="101.43.33.201" host="101.43.33.201" cilentID="UCS_to_vehicle1_send" username2="UCS_to_vehicle1_recieved"/>
+ <vehicle port="1883" cilentID2="UCS2V2R" topicname2="uploadstream_vehicle2" username="UCS2V2S" topicname="downloadstream_vehicle2" cilentnum="vehicle2" port2="1883" password2="public" password="public" host2="101.43.33.201" host="101.43.33.201" cilentID="UCS2V2S" username2="UCS2V2R"/>
 </vehiclelist>

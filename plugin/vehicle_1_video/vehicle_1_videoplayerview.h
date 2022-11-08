@@ -10,8 +10,6 @@ class Vehicle_1_VideoPlayerView : public QWidget
 public:
     explicit Vehicle_1_VideoPlayerView(QWidget *parent = nullptr);
 
-signals:
-
 };
 
 #endif // VEHICLE_1_VIDEOPLAYERVIEW_H

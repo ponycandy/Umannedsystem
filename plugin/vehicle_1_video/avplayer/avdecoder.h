@@ -27,6 +27,8 @@ public:
 
 signals:
     void signalDecodeFinished();
+    void signalFrameImage(IMAGE_DATA::_IMAGEDATA frameImage);
+
 
 protected:
     virtual void run() Q_DECL_OVERRIDE;
@@ -54,7 +56,7 @@ private:
 
 private:
     QString m_videoPath;
-
+    int play_flag;
 
     bool m_isThreadRunningState;
 };

@@ -3,6 +3,7 @@
 <plugin order="1" name="Datamanager" />
 <plugin order="1" name="ocu_operation_core" />
 <plugin order="1" name="ocu_car_manager" />
+                <plugin order="1" name="ocu_map" />
 <plugin order="1" name="topicsubscriber" />
                 <plugin order="1" name="vehicle_1_ros" />
 <plugin order="1" name="vehicle1_communication" />
@@ -12,6 +13,11 @@
 <plugin order="1" name="ocu_video_control" />
 <plugin order="1" name="ocu_video_player" />
                 <plugin order="1" name="vehicle_1_video" />
+                <plugin order="1" name="vehicle_2_ros" />
+                <plugin order="1" name="vehicle_2_communication" />
+                <plugin order="1" name="vehicle_2_datamanager" />
+                <plugin order="1" name="vehicle_2_core" />
+                <plugin order="1" name="vehicle_2_control" />
 <!--		<endplugin/>-->
 <pluginnum value="1"/>
 </plugins>

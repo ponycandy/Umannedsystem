@@ -2,6 +2,8 @@
 #include "ui_startwindow.h"
 #include "ocu_car_managerActivator.h"
 #include "event/OcuEventContants.h"
+#include "qcoreapplication.h"
+#include "service/ROSnodeservice.h"
 startwindow::startwindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::startwindow),m_whitewidget(NULL)
@@ -97,10 +99,33 @@ void startwindow::EventTriggeres(XTLevent event)
             m_service->changeView(UcsDefines::VEHICLE_1_WINDOW);
             return;
         }
+        if(name== UcsEventConstants::VEHICLE_2_ACTIVATED)
+        {
+            m_service->changeView(UcsDefines::VEHICLE_2_WINDOW);
+            return;
+        }
         if(name== UcsEventConstants::EXITTOMAIN)
         {
             m_service->changeView(UcsDefines::UCS_VIEW_KIND_MAIN);
             changeView(UcsDefines::UCS_VIEW_KIND_MAIN);
+
+            return;
+        }
+        if(name== UcsEventConstants::STSTEMSHUTDOWN)
+        {
+            ROSnodeservice *m_service_ros=ocu_car_managerActivator::getService<ROSnodeservice>("ROSnodeservice");
+            m_service_ros->destroyall();
+            QApplication::quit();
+        }
+        if(name== UcsEventConstants::MAPINTERFACE)
+        {
+            changeView(UcsDefines::OCU_MAP_DISPLAY);
+
+            return;
+        }
+        if(name== UcsEventConstants::ROS_RVIZ_VIEW)
+        {
+            changeView(UcsDefines::OCU_ROS_RVIZ);
 
             return;
         }
@@ -119,6 +144,7 @@ void startwindow::buildMenu(int type)
         setButton(2, QStringLiteral("Map\r\nInterface"), UcsEventConstants::MAPINTERFACE, QString(":/b_img/六芒星.png"));
         setButton(3, QStringLiteral("ROSnode\r\nManage"), UcsEventConstants::ROS_NODE_MANAGEMENT, QString(":/b_img/六芒星.png"));
         setButton(4, QStringLiteral("vehicle1\r\ncontol"), UcsEventConstants::VEHICLE_1_ACTIVATED, QString(":/b_img/六芒星.png"));
+        setButton(5, QStringLiteral("vehicle2\r\ncontol"), UcsEventConstants::VEHICLE_2_ACTIVATED, QString(":/b_img/六芒星.png"));
 
         setButton(12, QStringLiteral("EXIT"), UcsEventConstants::STSTEMSHUTDOWN, QString(":/b_img/六芒星.png"));
 
@@ -131,6 +157,20 @@ void startwindow::buildMenu(int type)
     }
     case UcsDefines::ROSNODEMANAGEMENT:
     {
+        setButton(12, QStringLiteral("BACK"), UcsEventConstants::MENU_EVENT_LOGIN, QString(":/b_img/六芒星.png"));
+        break;
+    }
+    case UcsDefines::OCU_MAP_DISPLAY:
+    {
+        setButton(7, QStringLiteral("Map\r\nSetting"), UcsEventConstants::MENU_EVENT_LOGIN, QString(":/b_img/六芒星.png"));
+        setButton(1, QStringLiteral("ROS\r\nRviz View"), UcsEventConstants::ROS_RVIZ_VIEW, QString(":/b_img/六芒星.png"));
+        setButton(12, QStringLiteral("BACK"), UcsEventConstants::MENU_EVENT_LOGIN, QString(":/b_img/六芒星.png"));
+        break;
+    }
+    case UcsDefines::OCU_ROS_RVIZ:
+    {
+        setButton(7, QStringLiteral("RVIZ\r\nSetting"), UcsEventConstants::MENU_EVENT_LOGIN, QString(":/b_img/六芒星.png"));
+        setButton(1, QStringLiteral("Map\r\nView"), UcsEventConstants::MAPINTERFACE, QString(":/b_img/六芒星.png"));
         setButton(12, QStringLiteral("BACK"), UcsEventConstants::MENU_EVENT_LOGIN, QString(":/b_img/六芒星.png"));
         break;
     }

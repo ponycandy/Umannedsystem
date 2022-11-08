@@ -45,7 +45,8 @@ bool pluginmanager::loadplugin()
                 qDebug()<<filename<<"has been loaded";
             }
                 else {
-                qDebug()<<"fail to laod"<<filename;
+                qDebug()<<"fail to laod"<<filename<<" cause: "<<pluginLoader.errorString();
+
             }
 
           //  qDebug()<<__FUNCTION__<<pluginLoader.errorString();

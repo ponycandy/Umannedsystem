@@ -5,13 +5,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
 TEMPLATE = lib
-DEFINES += VEHICLE1_CONTROL_LIBRARY
+DEFINES += VEHICLE_2_ROS_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
 DESTDIR = ../../build
 INCLUDEPATH +=/opt/ros/melodic/include
 DEPENDPATH +=/opt/ros/melodic/include
 
-LIBS += -lmysqlclient -lmqttclient -lpthread
 LIBS += -L/opt/ros/melodic/lib -lroscpp -lroslib -lrosconsole -lroscpp_serialization -lrostime
 
 INCLUDEPATH += ../../build/config
@@ -19,16 +18,15 @@ INCLUDEPATH += ../../include
 INCLUDEPATH += ../../
 
 SOURCES += \
-    vehicle1_controlActivator.cpp \
-    vehicle1_control_widget.cpp
+    vehicle_2_rosActivator.cpp \
+    nodemanager.cpp \
+    singleshot.cpp
 
 
 
 HEADERS += \
-    vehicle1_controlActivator.h \
-    vehicle1_control_widget.h
-
-FORMS += \
-    vehicle1_control_widget.ui
+    vehicle_2_rosActivator.h \
+    nodemanager.h \
+    singleshot.h
 
 

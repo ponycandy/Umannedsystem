@@ -7,6 +7,7 @@
 #include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/Joy.h>
 #include <service/Datamanageservice.h>
+#include <service/ocu_car_coreservice.h>
 #include <QThread>
 #include <listen_thread.h>
 #include <service/eventservice.h>
@@ -14,6 +15,7 @@
 #include <pub_thread.h>
 #include <rosnodemanager.h>
 #include "singleshot.h"
+#include "ros_rviz_widget.h"
 class nodemanager : public QObject,public EventService
 {
     Q_OBJECT
@@ -23,12 +25,19 @@ public:
     explicit nodemanager(QObject *parent = nullptr);
     void chatterCallback(const sensor_msgs::PointCloud data);
     void chatterCallback1(const sensor_msgs::Joy data);
+    void vehicle1_auto_topic_callback(const geometry_msgs::Twist data);
+    void vehicle2_auto_topic_callback(const geometry_msgs::Twist data);
 
     Datamanageservice *m_datamanager;
+    ocu_car_coreservice *m_car_core_service;
+    ros_rviz_widget *rviz_widget;
     listen_thread *m_thread;
     pub_thread *m_thread2;
     ros::Subscriber sub0;
     ros::Subscriber sub1;
+    ros::Subscriber sub2;
+    ros::Subscriber sub3;
+
     void EventTriggeres(XTLevent event) override;
     ROSnodemanager *m_rosview;
     Singleshot *m_pub_once;

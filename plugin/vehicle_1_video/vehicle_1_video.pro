@@ -12,23 +12,35 @@ INCLUDEPATH +=/opt/ros/melodic/include
 DEPENDPATH +=/opt/ros/melodic/include
 
 LIBS += -L/opt/ros/melodic/lib -lroscpp -lroslib -lrosconsole -lroscpp_serialization -lrostime
-include($$PWD/../../build/ffmpeg/ffmpeg.pri)
+include(./ffmpeg/ffmpeg.pri)
 INCLUDEPATH += ../../build/config
 INCLUDEPATH += ../../include
 INCLUDEPATH += ../../
 
 SOURCES += \
+    imagedisplay.cpp \
     vehicle_1_videoActivator.cpp \
     ./avplayer/avdecoder.cpp   \
     ./avplayer/avplayer.cpp \
+    vehicle_1_videoplayerview.cpp \
+    video_display_widget.cpp \
     video_manager.cpp
 
 
 
 HEADERS += \
+    imagedisplay.h \
     vehicle_1_videoActivator.h \
     ./avplayer/avdecoder.h   \
     ./avplayer/avplayer.h \
+    vehicle_1_videoplayerview.h \
+    video_display_widget.h \
     video_manager.h
+
+FORMS += \
+    video_display_widget.ui
+
+RESOURCES += \
+    imgsrc.qrc
 
 

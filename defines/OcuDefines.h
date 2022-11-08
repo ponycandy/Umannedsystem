@@ -28,10 +28,16 @@ typedef enum {
     UCS_VIEW_KIND_NONE = 0,
     UCS_VIEW_KIND_MAIN,                               //! 主界面
     VEHICLE_1_WINDOW,                                   //!vehicle 1 interface
+    VEHICLE_2_WINDOW,                                   //!vehicle 2 interface
+
     NETCONFIG_INTERFACE,                                   //!NETCONFIG_INTERFACE 1 interface
     ROSNODEMANAGEMENT,                                   //ROSNODEMANAGEMENT
     VEHICLE1_CONTROL,                                   //ROSNODEMANAGEMENT
-
+    VEHICLE1_VIDEO,                                   //ROSNODEMANAGEMENT
+    VEHICLE2_CONTROL,                                   //ROSNODEMANAGEMENT
+    VEHICLE2_VIDEO,                                   //ROSNODEMANAGEMENT
+    OCU_MAP_DISPLAY,                                   //ROSNODEMANAGEMENT
+    OCU_ROS_RVIZ,                                   //ROSNODEMANAGEMENT
 
 
     UCS_VIEW_KIND_LOGIN,                               //! 登陆界面

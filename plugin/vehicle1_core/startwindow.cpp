@@ -13,7 +13,7 @@ startwindow::startwindow(QWidget *parent) :
     vehicle1_coreActivator::registerservice(this,"vehicle_1_coreservice");
 
     m_service->addView(UcsDefines::UcsViewKind::VEHICLE_1_WINDOW,this);
-     vehicle1_coreActivator::subscribevent(UcsEventConstants::TOPCI_MENU_CLICKED,this);
+    vehicle1_coreActivator::subscribevent(UcsEventConstants::TOPCI_MENU_CLICKED,this);
 }
 
 startwindow::~startwindow()
@@ -85,15 +85,20 @@ void startwindow::EventTriggeres(XTLevent event)
         {
             changeView(UcsDefines::VEHICLE1_CONTROL);
             //            changeView(UcsDefines::UCS_VIEW_KIND_MAIN);
-            //            return;
+            return;
         }
         if(name== UcsEventConstants::VEHICLE_1_MAIN)
         {
             changeView(UcsDefines::VEHICLE_1_WINDOW);
             //            changeView(UcsDefines::UCS_VIEW_KIND_MAIN);
-            //            return;
+            return;
         }
-
+        if(name== UcsEventConstants::VEHICLE_1_VIDEO)
+        {
+            changeView(UcsDefines::VEHICLE1_VIDEO);
+            //            changeView(UcsDefines::UCS_VIEW_KIND_MAIN);
+            return;
+        }
     }
 }
 
@@ -105,13 +110,20 @@ void startwindow::buildMenu(int type)
     case UcsDefines::VEHICLE_1_WINDOW:
     {
         setButton(1, QStringLiteral("Control \r\n Mode"), UcsEventConstants::VEHICLE_1_CONTROL, QString(":/b_img/六芒星.png"));
-        //  setButton(2, QStringLiteral("Auto\r\nControl"), UcsEventConstants::MAPINTERFACE, QString(":/b_img/六芒星.png"));
+        setButton(2, QStringLiteral("video \r\n display"), UcsEventConstants::VEHICLE_1_VIDEO, QString(":/b_img/六芒星.png"));
         setButton(12, QStringLiteral("EXIT"), UcsEventConstants::EXITTOMAIN, QString(":/b_img/六芒星.png"));
         break;
     }
     case UcsDefines::VEHICLE1_CONTROL:
     {
-      setButton(12, QStringLiteral("EXIT"), UcsEventConstants::VEHICLE_1_MAIN, QString(":/b_img/六芒星.png"));
+        setButton(12, QStringLiteral("EXIT"), UcsEventConstants::VEHICLE_1_MAIN, QString(":/b_img/六芒星.png"));
+        break;
+    }
+    case UcsDefines::VEHICLE1_VIDEO:
+    {
+        setButton(1, QStringLiteral("Control \r\n panel"), UcsEventConstants::VEHICLE_1_CONTROL, QString(":/b_img/六芒星.png"));
+
+        setButton(12, QStringLiteral("EXIT"), UcsEventConstants::VEHICLE_1_MAIN, QString(":/b_img/六芒星.png"));
         break;
     }
     default:

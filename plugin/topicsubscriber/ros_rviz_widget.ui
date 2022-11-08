@@ -1,21 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>ros_rviz_widget</class>
- <widget name="ros_rviz_widget" class="QWidget">
+ <widget class="QWidget" name="ros_rviz_widget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>834</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

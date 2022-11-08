@@ -56,9 +56,11 @@ void AvPlayer::init()
 
 void AvPlayer::initConnector()
 {
+    qRegisterMetaType<IMAGE_DATA::_IMAGEDATA>("IMAGE_DATA::_IMAGEDATA");
+
     qRegisterMetaType<QSharedPointer<QImage>>("QSharedPointer<QImage>");
-    connect(m_pAvDecoder, SIGNAL(signalFrameImage(QSharedPointer<QImage>)),
-            this, SIGNAL(signalFrameImage(QSharedPointer<QImage>)), Qt::QueuedConnection);
+    connect(m_pAvDecoder, SIGNAL(signalFrameImage(IMAGE_DATA::_IMAGEDATA)),
+            this, SIGNAL(signalFrameImage(IMAGE_DATA::_IMAGEDATA)), Qt::QueuedConnection);
     connect(m_pAvDecoder, SIGNAL(signalDecodeFinished()), this, SLOT(slotOnDecodeFinished()));
 
     connect(m_pAvDecoder,&QThread::finished,m_pAvDecoder,&AvDecoder::deleteLater);

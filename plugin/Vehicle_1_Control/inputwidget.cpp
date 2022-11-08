@@ -11,6 +11,8 @@ inputwidget::inputwidget(QWidget *parent) :
     m_datamanager=Vehicle_1_ControlActivator::getService<vehicle_1_1Datamanageservice>("vehicle_1_1Datamanageservice");
     m_communication=Vehicle_1_ControlActivator::getService<vehicle1_communicationservice>("vehicle1_communicationservice");
     Vehicle_1_ControlActivator::subscribevent(UCSEVENT::CONTROLLER_CMD,this);
+    Vehicle_1_ControlActivator::subscribevent(UCSEVENT::V1_AUTO,this);
+
 }
 
 inputwidget::~inputwidget()
@@ -23,6 +25,17 @@ void inputwidget::EventTriggeres(XTLevent event)
     if(event.eventname==UCSEVENT::CONTROLLER_CMD)
     {
         if (this->ui->horizontalSlider->value()== 3)
+        {
+            QVariant data=event.m_dict.value("value");
+            V1DATA::MOTIONCOMMAND cmd=data.value<V1DATA::MOTIONCOMMAND>();
+            execute_cmd(cmd);
+        }
+
+        return;
+    }
+    if(event.eventname==UCSEVENT::V1_AUTO)
+    {
+        if (this->ui->horizontalSlider->value()== 2)
         {
             QVariant data=event.m_dict.value("value");
             V1DATA::MOTIONCOMMAND cmd=data.value<V1DATA::MOTIONCOMMAND>();

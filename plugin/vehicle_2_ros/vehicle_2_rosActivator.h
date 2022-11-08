@@ -1,5 +1,5 @@
-#ifndef VEHICLE1_CONTROL_H
-#define VEHICLE1_CONTROL_H
+#ifndef VEHICLE_2_ROS_H
+#define VEHICLE_2_ROS_H
 #ifndef QTPLUGIN_H
 #define QTPLUGIN_H
 
@@ -7,16 +7,17 @@
 #include <QtPlugin>
 #include "plugininterface.h"
 #include "service/eventservice.h"
-#include "vehicle1_control_widget.h"
+#include "nodemanager.h"
 
 
-class vehicle1_controlActivator : public QObject,public PluginInterface
+
+class vehicle_2_rosActivator : public QObject,public PluginInterface
 {
     Q_OBJECT
     Q_INTERFACES(PluginInterface)
     Q_PLUGIN_METADATA(IID PluginInterface_iid)
 public:
-    explicit vehicle1_controlActivator(QObject *parent = nullptr);
+    explicit vehicle_2_rosActivator(QObject *parent = nullptr);
     void stop() override;
     void start() override;
     void init(PluginContext *CONTEXT) override;
@@ -42,9 +43,10 @@ public:
 
 
 private:
-    static vehicle1_controlActivator *m_instance;
+    static vehicle_2_rosActivator *m_instance;
     static PluginContext *m_CONTEXT;
-    vehicle1_control_widget *m_widget;
+    nodemanager *m_manager;
+
 };
 
 #endif 

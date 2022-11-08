@@ -16,3 +16,9 @@ SUBDIRS += \
     Vehicle_1_Control   \
     vehicle_1_ros   \
     vehicle_1_video   \
+    ocu_map   \
+    vehicle_2_communication   \
+    vehicle_2_datamanager   \
+    vehicle_2_core   \
+    vehicle_2_control   \
+    vehicle_2_ros   \

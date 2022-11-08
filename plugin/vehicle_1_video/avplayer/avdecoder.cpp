@@ -53,6 +53,7 @@ void AvDecoder::init()
 {
     av_register_all();
     avformat_network_init();
+    play_flag=1;
 }
 
 void AvDecoder::release()
@@ -65,29 +66,42 @@ void AvDecoder::decode()
     AVFormatContext *pAvFmtCtx = avformat_alloc_context();
 #ifdef RTP
     const QString sdpPath = m_videoPath;
-    QFile file(sdpPath);
-    if (!file.open(QIODevice::ReadWrite)) {
-        return;
+    if(play_flag=0)//for local video player
+    {
+
+        QFile file(sdpPath);
+        if (!file.open(QIODevice::ReadWrite)) {
+            return;
+        }
+        QByteArray ba = file.readAll();
+        file.close();
+        AVIOContext * avio = avio_alloc_context((unsigned char *)ba.data(), ba.size(), 0, (void*)NULL, NULL, NULL, NULL);
+        pAvFmtCtx->pb = avio;
+        pAvFmtCtx->iformat = av_find_input_format("mp4");
+        AVDictionary *option = NULL;
+
+        /*timeout:设置超时时间，否则阻塞在av_read_frame中*/
+        av_dict_set(&option, "timeout", "100000", 0);
+
+        /*reorder_queue_size:为处理重新排序的包而缓冲的包数，主要用于处理视频源重新推流时接收端因未收到完整的最后一帧而阻塞的情况*/
+        av_dict_set(&option, "reorder_queue_size", "0", 0);
+
+        if (avformat_open_input(&pAvFmtCtx, "nothing", NULL, &option/*NULL*/) < 0) {
+            debugInfo(QString("open video(%1) failed !").arg(m_videoPath));
+
+            emit signalDecodeFinished();
+
+            return;
+        }
     }
-    QByteArray ba = file.readAll();
-    file.close();
-    AVIOContext * avio = avio_alloc_context((unsigned char *)ba.data(), ba.size(), 0, (void*)NULL, NULL, NULL, NULL);
-    pAvFmtCtx->pb = avio;
-    pAvFmtCtx->iformat = av_find_input_format("mp4");
-    AVDictionary *option = NULL;
+    else
+    {
+        std::string tempfile=m_videoPath.toStdString();
+        if(avformat_open_input(&pAvFmtCtx,tempfile.c_str(),NULL,NULL)<0)return;
+        if(avformat_find_stream_info(pAvFmtCtx,nullptr)<0)return ;
+        av_dump_format(pAvFmtCtx,0,tempfile.c_str(),0);
 
-    /*timeout:设置超时时间，否则阻塞在av_read_frame中*/
-    av_dict_set(&option, "timeout", "100000", 0);
 
-    /*reorder_queue_size:为处理重新排序的包而缓冲的包数，主要用于处理视频源重新推流时接收端因未收到完整的最后一帧而阻塞的情况*/
-    av_dict_set(&option, "reorder_queue_size", "0", 0);
-
-    if (avformat_open_input(&pAvFmtCtx, "nothing", NULL, &option/*NULL*/) < 0) {
-        debugInfo(QString("open video(%1) failed !").arg(m_videoPath));
-
-        emit signalDecodeFinished();
-
-        return;
     }
 #else
     if (avformat_open_input(&pAvFmtCtx, m_videoPath.toStdString().data(), NULL, /*&option*/NULL) < 0) {
@@ -119,7 +133,6 @@ void AvDecoder::decodeFrame(AVFormatContext *pAvFmtCtx, uint streamIndex)
         AVCodec *pAvCodec = avcodec_find_decoder(pAvCodecCtx->codec_id);
         qDebug()<<pAvCodecCtx->width;
         qDebug()<<pAvCodecCtx->height;
-        M_display->change_size(pAvCodecCtx->width,pAvCodecCtx->height);
         if (pAvCodec == NULL) {
             debugInfo(QString("cannot find video decoder !!!"), AVDEBUG_ERROR);
             break;

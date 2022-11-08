@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSharedPointer>
 #include <QImage>
-
+#include <defines/Vehicle1_data.h>
 class AvDecoder;
 
 class AvPlayer : public QObject
@@ -23,7 +23,7 @@ signals:
     /*视频播放结束*/
     void signalVideoPlayFinished();
     /*一帧图像*/
-    void signalFrameImage(QSharedPointer<QImage> spFrameImage);
+    void signalFrameImage(IMAGE_DATA::_IMAGEDATA spFrameImage);
 
 private slots:
     void slotOnDecodeFinished();

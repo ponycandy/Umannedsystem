@@ -10,6 +10,7 @@ ROSnodemanager::ROSnodemanager(QWidget *parent) :
     ui(new Ui::ROSnodemanager)
 {
     m_service=topicsubscriberActivator::getService<ocu_car_coreservice>("ocu_car_coreservice");
+    topicsubscriberActivator::registerservice(this,"ROSnodeservice");
     ui->setupUi(this);
     ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
     ui->listWidget_2->setDragDropMode(QAbstractItemView::InternalMove);
@@ -55,6 +56,12 @@ ROSnodemanager::ROSnodemanager(QWidget *parent) :
 ROSnodemanager::~ROSnodemanager()
 {
     delete ui;
+}
+
+void ROSnodemanager::destroyall()
+{
+    on_pushButton_2_clicked();
+    on_pushButton_8_clicked();
 }
 
 void ROSnodemanager::on_add_button_clicked()
@@ -162,8 +169,21 @@ void ROSnodemanager::on_pushButton_clicked()
 
     for (ros::master::V_TopicInfo::iterator it = master_topics.begin() ; it != master_topics.end(); it++)
     {
-      const ros::master::TopicInfo& info = *it;
-      ui->listWidget_5->addItem(QString::fromStdString(info.name));
-      m_list.append( QString::fromStdString(info.name)) ;
+        const ros::master::TopicInfo& info = *it;
+        ui->listWidget_5->addItem(QString::fromStdString(info.name));
+        m_list.append( QString::fromStdString(info.name)) ;
+    }
+}
+
+void ROSnodemanager::on_pushButton_8_clicked()
+{
+    QString text;
+    for(int i = 0; i < ui->listWidget_3->count(); i++) {
+        text="rosnode kill  "+ ui->listWidget_3->item(i)->text();
+        std::system(text.toLatin1().data());
+    }
+    for(int i = 0; i < ui->listWidget_4->count(); i++) {
+        text="rosnode kill  "+ ui->listWidget_4->item(i)->text();
+        std::system(text.toLatin1().data());
     }
 }

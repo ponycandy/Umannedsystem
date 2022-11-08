@@ -7,8 +7,7 @@ class ROSnodeservice
 {
 public:
     virtual ~ROSnodeservice(){}
-    virtual QStringList getallnode()=0;
-    virtual void destroynode(QStringList)=0;
+    virtual void destroyall()=0;
 
 };
 #define ROSnodeservice_iid "ROSnodeservice"
