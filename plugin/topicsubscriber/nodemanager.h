@@ -27,6 +27,7 @@ public:
     void chatterCallback1(const sensor_msgs::Joy data);
     void vehicle1_auto_topic_callback(const geometry_msgs::Twist data);
     void vehicle2_auto_topic_callback(const geometry_msgs::Twist data);
+    void init_node();
 
     Datamanageservice *m_datamanager;
     ocu_car_coreservice *m_car_core_service;

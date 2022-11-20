@@ -2,10 +2,12 @@
 #include "topicsubscriberActivator.h"
 #include "QtDebug"
 #include "defines/Vehicle1_data.h"
+#include "defines/vehicle_2_data.h"
 #include "event/OcuEventContants.h"
 nodemanager::nodemanager(QObject *parent) : QObject(parent),workingthread(NULL),rviz_widget(NULL),
     m_datamanager(NULL),m_thread(NULL),nh_(NULL),  ros_timer(NULL),m_rosview(NULL),m_car_core_service(NULL)
 {
+    init_node();
     m_thread=new listen_thread;
     m_thread2=new pub_thread;
     m_pub_once=new Singleshot;
@@ -141,15 +143,30 @@ void nodemanager::vehicle1_auto_topic_callback(const geometry_msgs::Twist data)
 
 void nodemanager::vehicle2_auto_topic_callback(const geometry_msgs::Twist data)
 {
-    V1DATA::MOTIONCOMMAND m_cmd;
+    VEHICLE_2_DATA::MOTIONCOMMAND m_cmd;
     m_cmd.header=0xaabb;
     m_cmd.linear=data.linear.x;
     m_cmd.angular=data.angular.z;
     XTLevent m_event;
     m_event.eventname=UCSEVENT::V2_AUTO;
-    m_event.m_dict.insert("value",QVariant::fromValue<V1DATA::MOTIONCOMMAND>(m_cmd));
+    m_event.m_dict.insert("value",QVariant::fromValue<VEHICLE_2_DATA::MOTIONCOMMAND>(m_cmd));
     //虽然motioncommand的格式是一致的，但是确实有崩溃的可能
     topicsubscriberActivator::postevent(m_event);
+
+}
+
+void nodemanager::init_node()
+{
+    char pBuf[256];
+    size_t len = sizeof(pBuf);
+    int pathlen=readlink("/proc/self/exe", pBuf, len);
+    int bytes = pathlen>(len - 1)?pathlen:(len - 1);
+    if(bytes >= 0)
+        pBuf[bytes] = '\0';
+    char *sh[]={pBuf};
+    printf("%s",pBuf);
+    int argc_new=1;
+    ros::init(argc_new,sh,"UCS_node",ros::init_options::AnonymousName);
 
 }
 
