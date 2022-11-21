@@ -25,6 +25,14 @@ public:
     {
         m_CONTEXT->postevent(event);
     }
+    static void subscribeslot(QObject *reciever, const char *method, QString eventname,Qt::ConnectionType type)
+    {
+        m_CONTEXT->subscribeslot(reciever, method, eventname,type);
+    }
+    static void publishsignal(QObject *sender, const char *signal, QString eventname,Qt::ConnectionType type)
+    {
+        m_CONTEXT->publishsignal(sender, signal, eventname,type);
+    }
     static void registerservice(QObject* service,QString name)
     {
     m_CONTEXT->registerservice(service,name);
