@@ -1,14 +1,6 @@
 ﻿#include <QApplication>
 #include <configfile.h>
 #include "pluginmanager.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <algorithm>
-#if defined (Q_OS_WIN32)
-#else
-#include "ros/ros.h"
-#endif
 
 int main(int argc, char *argv[])
 {

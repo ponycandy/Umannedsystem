@@ -34,11 +34,11 @@ public:
     }
     static void registerservice(QObject* service,QString name)
     {
-    m_CONTEXT->registerservice(service,name);
+        m_CONTEXT->registerservice(service,name);
     };
     static void subscribevent(QString name,EventService *handle)
     {
-    m_CONTEXT->subscribeslot(name,handle);
+        m_CONTEXT->subscribeslot(name,handle);
     };
     template <typename T>
     static T* getService(QString servicename)

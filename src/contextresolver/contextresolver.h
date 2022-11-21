@@ -25,6 +25,9 @@ public:
     void tryconnection_slot(QString eventname,QObject *sender,const char *signal);
     void tryconnection_sig(QString eventname,QObject *reciever,const char *slot);
 
+    QMap<QString ,FuncDummy*> reciever_map;
+    QMap<QString ,FuncDummy*> sender_map;
+
 signals:
 
 private:
@@ -32,8 +35,7 @@ private:
     int sender_map_count=0;
     QMap<QString ,QObject*> service_map;
     QMap<QString ,SlotPointer*> event_map;
-    QMap<QString ,FuncDummy*> reciever_map;
-    QMap<QString ,FuncDummy*> sender_map;
+
 
 
 

@@ -1,5 +1,6 @@
 ﻿#include "coremainwindow.h"
 #include "ocu_coreActivator.h"
+#include "QtDebug"
 coremainwindow::coremainwindow(QWidget *parent) : QWidget(parent)
     , m_centralWidget(NULL)
     , m_viewManager(NULL)
@@ -9,6 +10,10 @@ coremainwindow::coremainwindow(QWidget *parent) : QWidget(parent)
     setupUi();
 
     ocu_coreActivator::registerservice(this,"Coreservice");
+//    some example of cross plugin signal connection
+//    ocu_coreActivator::subscribeslot(this,SLOT(slot_test()),"test_core",Qt::QueuedConnection);
+//    ocu_coreActivator::publishsignal(this,SIGNAL(test_sig()),"test_core",Qt::QueuedConnection);
+//    emit test_sig();
     showFullScreen();
 
     this->setGeometry(0,0,1920,1080);
@@ -145,6 +150,11 @@ void coremainwindow::slotCloseBtnClicked()
 {
     QCloseEvent *event = new QCloseEvent;
     closeEvent(event);
+}
+
+void coremainwindow::slot_test()
+{
+    qDebug()<<"trigered";
 }
 
 /**

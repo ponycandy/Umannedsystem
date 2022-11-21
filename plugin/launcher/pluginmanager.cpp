@@ -132,6 +132,8 @@ void pluginmanager::InitCONTEXT()
         }
             else {
             qDebug()<<"fail to laod contextresolver";
+            qDebug()<<"fail to laod contextresolver"<<" cause: "<<pluginLoader.errorString();
+
         }
 
      //   qDebug()<<__FUNCTION__<<pluginLoader.errorString();

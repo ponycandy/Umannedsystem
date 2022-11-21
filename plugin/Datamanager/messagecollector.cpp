@@ -10,7 +10,6 @@ messagecollector::messagecollector(QObject *parent) : QObject(parent),m_Data(NUL
     m_Data_Ptr.setpointee(m_Data);
     m_widget=new Netconfigwidget;
     DatamanagerActivator::registerservice(this,"Datamanageservice");
-
     DatamanagerActivator::subscribevent(UcsEventConstants::TOPCI_MENU_CLICKED,this);
 }
 void messagecollector::store(const sensor_msgs::PointCloud data)

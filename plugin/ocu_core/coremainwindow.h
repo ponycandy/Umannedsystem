@@ -75,7 +75,7 @@ private slots:
      * @brief slotCloseBtnClicked
      */
     void slotCloseBtnClicked();
-
+    void slot_test();
 protected:
     /**
      * @brief closeEvent
@@ -109,6 +109,10 @@ private:
      * @brief m_CurrentViewKind
      */
     UcsDefines::UcsViewKind  m_CurrentViewKind;
+signals:
+    void test_sig();
+
+
 
 };
 

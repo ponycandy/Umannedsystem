@@ -31,6 +31,7 @@ public:
     SmartPtr<Datacollection> m_Data_Ptr;
     int flag=0;
 signals:
+    void test_data_pub();
 
 };
 

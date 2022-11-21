@@ -13,7 +13,6 @@ public:
     virtual ~PluginContext(){}
     virtual void subscribeslot(QObject *reciever,const char *method,QString eventname,Qt::ConnectionType type) = 0;
     virtual void subscribeslot(QString name,EventService *handle)=0;
-
     virtual void registerservice(QObject *service,QString name) = 0;
     virtual QObject* getservice(QString name)=0;
     virtual void publishsignal(QObject *sender,const char *signal,QString eventname,Qt::ConnectionType type)=0;
