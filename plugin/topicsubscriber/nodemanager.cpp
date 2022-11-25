@@ -134,10 +134,10 @@ void nodemanager::vehicle1_auto_topic_callback(const geometry_msgs::Twist data)
     m_cmd.header=0xaabb;
     m_cmd.linear=data.linear.x;
     m_cmd.angular=data.angular.z;
+
     XTLevent m_event;
     m_event.eventname=UCSEVENT::V1_AUTO;
     m_event.m_dict.insert("value",QVariant::fromValue<V1DATA::MOTIONCOMMAND>(m_cmd));
-    //虽然motioncommand的格式是一致的，但是确实有崩溃的可能
     topicsubscriberActivator::postevent(m_event);
 }
 
