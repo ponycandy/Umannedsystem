@@ -110,6 +110,15 @@ typedef  struct   _POINTCLOUD{
     QVector<SINGEPOINTDATA> point_group;
 }POINTCLOUD;
 #pragma pack(pop)
+#pragma pack(push,1)
+typedef  struct   _LASER_SCAN{
+    short header;
+    uint32_t secquense;
+    ROSTIMESTAMP time;
+    uint32_t pointnum;
+    QVector<SINGEPOINTDATA> point_group;
+}LASER_SCAN;
+#pragma pack(pop)
 typedef  struct   _SHARED_POINTCLOUD{
     QSharedPointer<POINTCLOUD> SH_POINTCLOUD;
 }SHARED_POINTCLOUD;

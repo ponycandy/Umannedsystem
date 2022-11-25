@@ -96,6 +96,18 @@ void subthread::onReceived(const QMQTT::Message &message)
         //do not use qshared pointer it will not delete
         //problem:should not use service?(though will be slower)
     }
+    if((ptCache[0]==0xee) && (ptCache[1]==0xaa))
+    {
+        QSharedPointer<V1DATA::POINTCLOUD> m_cloud_ptr;
+        m_cloud_ptr = QSharedPointer<V1DATA::POINTCLOUD>(new V1DATA::POINTCLOUD);
+
+        parse((const char*)mine_data,*(m_cloud_ptr.data()));
+        V1DATA::SHARED_POINTCLOUD m_cloud_ptr_pass;
+        m_cloud_ptr_pass.SH_POINTCLOUD=m_cloud_ptr;
+        m_service_ros->pub(m_cloud_ptr_pass);
+        //do not use qshared pointer it will not delete
+        //problem:should not use service?(though will be slower)
+    }
 }
 
 void subthread::parse(const char *data, V1DATA::POINTCLOUD &PTtopic)

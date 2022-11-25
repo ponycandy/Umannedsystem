@@ -12,6 +12,7 @@ public:
     explicit Singleshot(QObject *parent = nullptr);
     void pub(V1DATA::SHARED_POINTCLOUD cloud_ptr) override;
     void pub(QSharedPointer<QImage> image_ptr) override;
+    void pub(V1DATA::LASER_SCAN cloud_ptr) override;
     ros::NodeHandlePtr nh_;
     ros::Publisher pub_1;
     ros::Publisher pub_2;

@@ -15,6 +15,11 @@ Singleshot::Singleshot(QObject *parent) : QObject(parent),nh_(nullptr)
         nh_->param<std::string>("/v1_imagedata_1",v1_imagedata_1,"/v1_imagedata_1");
         pub_2=nh_->advertise<sensor_msgs::Image>(v1_imagedata_1,1);
 
+        std::string v1_laserscan;
+        nh_->param<std::string>("/v1_laserscan",v1_laserscan,"/v1_laserscan");
+        pub_1=nh_->advertise<sensor_msgs::PointCloud>(v1_laserscan,1);
+
+
 }
 
 void Singleshot::pub(V1DATA::SHARED_POINTCLOUD cloud_ptr)
@@ -50,5 +55,10 @@ void Singleshot::pub(QSharedPointer<QImage> image_ptr)
     pub_image.height=image_data->height();
     pub_image.width=image_data->width();
 //still do not know how to assign other parts of pub_image
-//ros time will be available from fram meta data
+    //ros time will be available from fram meta data
+}
+
+void Singleshot::pub(V1DATA::LASER_SCAN cloud_ptr)
+{
+
 }
