@@ -1,4 +1,4 @@
-QT       += core gui testlib qmqtt
+QT       += core gui testlib network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,7 +12,9 @@ INCLUDEPATH +=/opt/ros/melodic/include
 DEPENDPATH +=/opt/ros/melodic/include
 
 LIBS += -L/opt/ros/melodic/lib -lroscpp -lroslib -lrosconsole -lroscpp_serialization -lrostime
+LIBS += -L../../3rdlib/mqtt -lQt5Qmqtt
 
+INCLUDEPATH += ../../3rdlib/mqtt/include
 INCLUDEPATH += ../../build/config
 INCLUDEPATH += ../../include
 INCLUDEPATH += ../../

@@ -44,7 +44,7 @@ void Singleshot::pub(V1DATA::SHARED_POINTCLOUD cloud_ptr)
         m_pointcloud.channels[0].values.push_back(cloud_ptr.SH_POINTCLOUD.data()->point_group[i].intensity);
         m_pointcloud.channels[1].values.push_back(cloud_ptr.SH_POINTCLOUD.data()->point_group[i].timestamp);
     }
-    pub_1.publish(m_pointcloud);//问题在上位机的这一步
+    pub_1.publish(m_pointcloud);
 }
 
 void Singleshot::pub(QSharedPointer<QImage> image_ptr)
