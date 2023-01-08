@@ -1,10 +1,12 @@
 安装说明：
-1.首先确保qt已经安装了qmqtt的库，这一部分依赖暂时无法与qt59环境解耦
+1.第三方库文件夹为3rdlib，将依赖的第三方库（ffmpeg，qmqtt等）添加到这个文件夹下，并在pro文件中添加动态库和头文件路径
 
-2.然后新建第三方库文件夹3rdlib，并将第三方库文件、qmqtt的动态库悉数放到这个文件夹下
+2.使用qt打开src文件夹下的contextresolver.pro项目，然后编译,debug和release模式均可
 
-3.首先使用qt打开src文件夹下的contextresolver.pro项目，然后编译
+3.接下来就可以进入到plugin文件夹下，打开plugin.pro文件，进行项目的修改和使用了
 
-4.接下来就可以进入到plugin文件夹下，打开plugin.pro文件，进行项目的修改和使用了
+常见bug有：
+1.提示symbol lookuperror，如果出现这个错误，情检查上面所述的第一步是否完成
+2.如果第一部没有问题，说明qt中运行环境没有加载完全，打开:项目--->run--->运行时环境--->LD_LIBRARY_PATH，添加依赖的动态库所在的目录,并检查ros目录是否错误
 
 
