@@ -5,6 +5,7 @@
 class UNKNOW_LIBRARY_EXPORT LIBRARY_NAME
 {
 public:
+	LIBRARY_NAME();
 private:
 };
 
