@@ -3,9 +3,11 @@
 
 2.这一步非常重要，仅在头文件中添加的第三方库路径有时候不会被连接（比如mqtt库），如果出现这一情况，请打开：项目--->build--->编译时环境--->LD_LIBRARY_PATH，添加依赖的动态库所在的目录
 
-3.使用qt打开src文件夹下的contextresolver.pro项目，然后编译,debug和release模式均可
+3.在LD_Library_path变量的运行时态中，添加3rdlin/project_library/bin变量
 
-4.接下来就可以进入到plugin文件夹下，打开plugin.pro文件，进行项目的修改和使用了
+4.使用qt打开src文件夹下的contextresolver.pro项目，然后编译,debug和release模式均可
+
+5.接下来就可以进入到plugin文件夹下，打开plugin.pro文件，进行项目的修改和使用了
 
 常见bug有：
 1.提示symbol lookuperror，如果出现这个错误，情检查上面所述的第一步是否完成
