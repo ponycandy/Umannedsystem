@@ -479,8 +479,8 @@ void MainWindow::on_pushButton_10_clicked()
 
 void MainWindow::on_pushButton_11_clicked()
 {
-    QString targetext=f_insert_a_line(depend_plugin_name_pro_str,5,"LIBS += -L../3rdlib/project_library/bin -l"+dependency_name);
-    targetext=f_insert_a_line(targetext,5,"INCLUDEPATH +=../3rdlib/project_library/include/"+dependency_name);
+    QString targetext=f_insert_a_line(depend_plugin_name_pro_str,5,"LIBS += -L../../3rdlib/project_library/bin -l"+dependency_name);
+    targetext=f_insert_a_line(targetext,5,"INCLUDEPATH +=../../3rdlib/project_library/include/"+dependency_name);
     QFile file;
     QDir filedir("../plugin/"+depend_plugin_name);
     file.setFileName(filedir.absoluteFilePath(depend_plugin_name+".pro"));
