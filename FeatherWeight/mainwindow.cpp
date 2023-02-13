@@ -317,7 +317,7 @@ void MainWindow::on_pushButton_6_clicked()
     QString lib_template_str_new=f_Replacestring(lib_template_str,"UNKNOW_LIBRARY_global",libname.toUpper()+"_global");
     QString lib_template_str_new_1=f_Replacestring(lib_template_str_new,"UNKNOW_LIBRARY.cpp",libname+".cpp");
     QString lib_template_str_new_2=f_Replacestring(lib_template_str_new_1,"UNKNOW_LIBRARY.h",libname+".h");
-    QString lib_template_str_new_3=f_Replacestring(lib_template_str_new_2,"DEFINES += UNKNOW_LIBRARY","DEFINES += "+libname.toUpper());
+    QString lib_template_str_new_3=f_Replacestring(lib_template_str_new_2,"UNKNOW_LIBRARY",libname.toUpper());
 
     lib_template_pro<<lib_template_str_new_3;
     file.close();
